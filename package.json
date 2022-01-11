@@ -1,0 +1,27 @@
+{
+  "name": "project-catwalk-products-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Almond-Boys/Project-Catwalk-Products-API.git"
+  },
+  "author": "Brian Dinh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Almond-Boys/Project-Catwalk-Products-API/issues"
+  },
+  "homepage": "https://github.com/Almond-Boys/Project-Catwalk-Products-API#readme"
+}
