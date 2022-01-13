@@ -34,33 +34,47 @@ CREATE DATABASE productsAPI;
   create TABLE photos (
     id integer primary key UNIQUE,
     styles_id integer not null,
-    thumbnail_url varchar(200) not null,
-    normal_url varchar(200) not null,
+    normal_url text not null,
+    thumbnail_url text not null,
     foreign key (styles_id) REFERENCES styles(id)
   );
+
+  copy photos(id, styles_id, normal_url, thumbnail_url) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv' delimiter ',' csv header;
+
+--   COPY photos
+-- FROM '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv'
+-- WITH (FORMAT CSV, HEADER true, NULL 'null');
+
+
 
   CREATE TABLE skus (
     id integer primary key UNIQUE,
     styles_id integer not null,
-    quantity integer not null,
     size varchar(25) not null,
+    quantity integer not null,
     foreign key (styles_id) REFERENCES styles(id)
   );
 
+  copy skus from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/skus.csv' delimiter ',' csv header;
+
   CREATE TABLE related (
-    id integer AUTO_INCREMENT primary key,
-    product_id varchar(25) not null,
+    id integer primary key,
+    product_id integer not null,
     related_id integer not null,
     foreign key (product_id) REFERENCES products(id)
   );
 
-  CREATE TABLE feature (
-    id integer AUTO_INCREMENT primary key,
-    product_id varchar(25) not null,
+  copy related from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/related.csv' delimiter ',' csv header;
+
+  CREATE TABLE features (
+    id integer primary key,
+    product_id integer not null,
     feature varchar(50) not null,
     feature_value varchar(50) not null,
     foreign key (product_id) REFERENCES products(id)
-  )
+  );
+
+  copy features from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/features.csv' delimiter ',' csv header;
 
   -- CREATE VIEW getProducts AS
   --   select id, campus, product_name, slogan, product_description, category, default_price, created_at, updated_at from products;
