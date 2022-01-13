@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS products;
-CREATE DATABASE products;
+DROP DATABASE IF EXISTS productsAPI;
+CREATE DATABASE productsAPI;
 
 \c products;
 --adding unique constraints , adding check to default price, adding check for sales price
@@ -9,29 +9,33 @@ CREATE DATABASE products;
 
   CREATE TABLE products (
     id integer primary key UNIQUE,
-    campus varchar(100) not null,
     product_name varchar(100) not null,
-    slogan varchar(50) not null,
-    product_description varchar(400) not null,
+    slogan varchar(200) not null,
+    product_description varchar(800) not null,
     category varchar(100) not null,
-    default_price varchar(50) not null,
+    default_price varchar(50) not null
   );
+
+  copy products(id, product_name, slogan, product_description, category, default_price) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/product.csv' delimiter ',' csv header;
+
  -- add foreign keys
   CREATE TABLE styles (
     id integer primary key UNIQUE,
-    product_id varchar(50) not null,
+    product_id integer not null,
     style_name varchar(50) not null,
-    original_price varchar(50) not null,
     sale_price varchar(50) CHECK(sale_price = null OR sale_price <= original_price),
+    original_price varchar(50) not null,
     style_default boolean not null,
-    foreign key (product_id) REFERENCES product(id)
+    foreign key (product_id) REFERENCES products(id)
   );
 
+  copy styles(id, product_id, style_name, sale_price, original_price, style_default) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/styles.csv' delimiter ',' csv header;
+
   create TABLE photos (
-    id integer AUTO_INCREMENT primary key UNIQUE,
+    id integer primary key UNIQUE,
     styles_id integer not null,
-    thumbnail_url varchar(100) not null,
-    url varchar(100) not null,
+    thumbnail_url varchar(200) not null,
+    normal_url varchar(200) not null,
     foreign key (styles_id) REFERENCES styles(id)
   );
 
