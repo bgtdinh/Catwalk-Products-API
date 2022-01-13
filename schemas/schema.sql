@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS productsAPI;
 CREATE DATABASE productsAPI;
 
-\c products;
+\c productsAPI;
 --adding unique constraints , adding check to default price, adding check for sales price
 --null or < default price
 
