@@ -1,7 +1,8 @@
 DROP DATABASE IF EXISTS productsAPI;
+
 CREATE DATABASE productsAPI;
 
-\c productsAPI;
+\c productsapi;
 --adding unique constraints , adding check to default price, adding check for sales price
 --null or < default price
 
@@ -16,7 +17,7 @@ CREATE DATABASE productsAPI;
     default_price varchar(50) not null
   );
 
-  copy products(id, product_name, slogan, product_description, category, default_price) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/product.csv' delimiter ',' csv header;
+  -- copy products(id, product_name, slogan, product_description, category, default_price) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/product.csv' delimiter ',' csv header;
 
  -- add foreign keys
   CREATE TABLE styles (
@@ -29,7 +30,7 @@ CREATE DATABASE productsAPI;
     foreign key (product_id) REFERENCES products(id)
   );
 
-  copy styles(id, product_id, style_name, sale_price, original_price, style_default) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/styles.csv' delimiter ',' csv header;
+  -- copy styles(id, product_id, style_name, sale_price, original_price, style_default) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/styles.csv' delimiter ',' csv header;
 
   create TABLE photos (
     id integer primary key UNIQUE,
@@ -39,7 +40,7 @@ CREATE DATABASE productsAPI;
     foreign key (styles_id) REFERENCES styles(id)
   );
 
-  copy photos(id, styles_id, normal_url, thumbnail_url) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv' delimiter ',' csv header;
+  -- copy photos(id, styles_id, normal_url, thumbnail_url) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv' delimiter ',' csv header;
 
 --   COPY photos
 -- FROM '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv'
@@ -55,7 +56,7 @@ CREATE DATABASE productsAPI;
     foreign key (styles_id) REFERENCES styles(id)
   );
 
-  copy skus from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/skus.csv' delimiter ',' csv header;
+  -- copy skus from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/skus.csv' delimiter ',' csv header;
 
   CREATE TABLE related (
     id integer primary key,
@@ -64,7 +65,7 @@ CREATE DATABASE productsAPI;
     foreign key (product_id) REFERENCES products(id)
   );
 
-  copy related from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/related.csv' delimiter ',' csv header;
+  -- copy related from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/related.csv' delimiter ',' csv header;
 
   CREATE TABLE features (
     id integer primary key,
@@ -74,7 +75,7 @@ CREATE DATABASE productsAPI;
     foreign key (product_id) REFERENCES products(id)
   );
 
-  copy features from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/features.csv' delimiter ',' csv header;
+  -- copy features from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/features.csv' delimiter ',' csv header;
 
   -- CREATE VIEW getProducts AS
   --   select id, campus, product_name, slogan, product_description, category, default_price, created_at, updated_at from products;

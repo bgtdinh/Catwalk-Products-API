@@ -12,7 +12,9 @@
     "eslint-plugin-import": "^2.25.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-tables": "psql -U brian < ./schemas/schema.sql",
+    "import-data": "psql -U brian < ./schemas/import.sql"
   },
   "repository": {
     "type": "git",
