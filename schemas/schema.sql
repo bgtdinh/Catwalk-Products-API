@@ -33,7 +33,7 @@ CREATE DATABASE productsAPI;
   -- copy styles(id, product_id, style_name, sale_price, original_price, style_default) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/styles.csv' delimiter ',' csv header;
 
   create TABLE photos (
-    id integer primary key UNIQUE,
+    photo_id integer primary key UNIQUE,
     styles_id integer not null,
     normal_url text not null,
     thumbnail_url text not null,
@@ -49,7 +49,7 @@ CREATE DATABASE productsAPI;
 
 
   CREATE TABLE skus (
-    id integer primary key UNIQUE,
+    sku_id integer primary key UNIQUE,
     styles_id integer not null,
     size varchar(25) not null,
     quantity integer not null,

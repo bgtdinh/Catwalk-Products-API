@@ -4,20 +4,22 @@ module.exports = {
   getProducts: (req, res) => {
     models.getProducts()
     .then( (response) => {
-      console.log(response.rows[0]);
+      res.status(201).send(response.rows);
     })
     .catch( (error) => {
       console.error(error.stack);
+      res.sendStatus(404);
     });
   },
 
   getProductById:(req, res) => {
     models.getProductById(req.query)
     .then( (response) => {
-      console.log(response.rows[0]);
+      res.status(201).send(models.transformProductId(response.rows));
     })
     .catch( (error) => {
       console.error(error.stack);
+      res.sendStatus(404);
     });
 
   },
@@ -25,10 +27,11 @@ module.exports = {
   getProductByIdWithStyles: (req, res) => {
     models.getProductByIdWithStyles(req.query)
     .then( (response) => {
-      console.log(response.rows[0]);
+      res.status(201).send(response.rows);
     })
     .catch( (error) => {
       console.error(error.stack);
+      res.sendStatus(404);
     });
 
 
@@ -37,10 +40,11 @@ module.exports = {
   getRelatedProducts: (req, res) => {
     models.getRelatedProducts(req.query)
     .then( (response) => {
-      console.log(response.rows[0]);
+      res.status(201).send(models.transformRelatedProducts(response.rows));
     })
     .catch( (error) => {
       console.error(error.stack);
+      res.sendStatus(404);
     });
   }
 }
