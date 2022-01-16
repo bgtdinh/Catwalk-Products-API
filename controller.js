@@ -27,7 +27,7 @@ module.exports = {
   getProductByIdWithStyles: (req, res) => {
     models.getProductByIdWithStyles(req.query)
     .then( (response) => {
-      res.status(201).send(response.rows);
+      res.status(201).send(models.transformProductByIdWithStyles(response.rows));
     })
     .catch( (error) => {
       console.error(error.stack);

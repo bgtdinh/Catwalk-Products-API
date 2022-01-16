@@ -89,19 +89,25 @@ module.exports = {
       results: [],
     }
     var tempResult = {};
+    var secondTempResult = [];
     for(let i = 0; i < styles.length; i++) {
       tempResult[styles[i].id] = {
-        styles_id: styles[i].style_id,
-        name: '',
-        original_price: '',
-        sale_price: '',
-        'default?': '',
+        styles_id: styles[i].id,
+        name: styles[i].style_name,
+        original_price: styles[i].original_price,
+        sale_price: styles[i].sale_price,
+        'default?': styles[i].style_default,
         photos: getPhotosbyStyleId(styles[i].id, styles),
         skus: getSkusbyStyleId(styles[i].id, styles),
       }
 
     }
 
+    for( let styleId in tempResult) {
+        secondTempResult.push(tempResult[styleId]);
+    }
+
+    result.results = secondTempResult;
     return result;
   }
 }
