@@ -17,7 +17,7 @@
     "mocha": "^9.1.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./test/unitTests.js",
     "build-tables": "psql -U brian < ./schemas/schema.sql",
     "import-data": "psql -U brian < ./schemas/import.sql",
     "start": "npx nodemon index.js"

@@ -1,53 +1,48 @@
+/* eslint-disable no-console */
 const models = require('./model');
 
 module.exports = {
   getProducts: (req, res) => {
     models.getProducts()
-    .then( (response) => {
-      res.status(201).send(response.rows);
-    })
-    .catch( (error) => {
-      console.error(error.stack);
-      res.sendStatus(404);
-    });
+      .then((response) => {
+        res.status(200).send(response.rows);
+      })
+      .catch((error) => {
+        console.error(error.stack);
+        res.sendStatus(404);
+      });
   },
 
-  getProductById:(req, res) => {
+  getProductById: (req, res) => {
     models.getProductById(req.query)
-    .then( (response) => {
-      res.status(201).send(models.transformProductId(response.rows));
-    })
-    .catch( (error) => {
-      console.error(error.stack);
-      res.sendStatus(404);
-    });
-
+      .then((response) => {
+        res.status(200).send(models.transformProductId(response.rows));
+      })
+      .catch((error) => {
+        console.error(error.stack);
+        res.sendStatus(404);
+      });
   },
 
   getProductByIdWithStyles: (req, res) => {
     models.getProductByIdWithStyles(req.query)
-    .then( (response) => {
-      res.status(201).send(models.transformProductByIdWithStyles(response.rows));
-    })
-    .catch( (error) => {
-      console.error(error.stack);
-      res.sendStatus(404);
-    });
-
-
+      .then((response) => {
+        res.status(200).send(models.transformProductByIdWithStyles(response.rows));
+      })
+      .catch((error) => {
+        console.error(error.stack);
+        res.sendStatus(404);
+      });
   },
 
   getRelatedProducts: (req, res) => {
     models.getRelatedProducts(req.query)
-    .then( (response) => {
-      res.status(201).send(models.transformRelatedProducts(response.rows));
-    })
-    .catch( (error) => {
-      console.error(error.stack);
-      res.sendStatus(404);
-    });
-  }
-}
-
-
-
+      .then((response) => {
+        res.status(200).send(models.transformRelatedProducts(response.rows));
+      })
+      .catch((error) => {
+        console.error(error.stack);
+        res.sendStatus(404);
+      });
+  },
+};
