@@ -9,6 +9,6 @@ export const options = {
 };
 
 export default function () {
-  http.get('http://localhost:3000/products/styles?product_id=1');
+  http.get('http://localhost:3000/products');
   sleep(1);
 }

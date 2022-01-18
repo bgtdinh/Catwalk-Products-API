@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
+const cache = require('memory-cache');
 
 const app = express();
 const port = 3000;
 const controller = require('./controller');
+const memCache = new cache.Cache();
 
 app.use(express.json());
 
