@@ -1,4 +1,5 @@
-const { Pool } =require('pg');
+/* eslint-disable no-console */
+const { Pool } = require('pg');
 
 const credentials = {
   host: process.env.DB_HOST,
@@ -11,11 +12,11 @@ const credentials = {
 const pool = new Pool(credentials);
 
 pool.connect()
-.then( () => {
-  console.log('Connected to postgres');
-})
-.catch ( (err) => {
-  console.error(err);
-});
+  .then(() => {
+    console.log('Connected to postgres');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 module.exports = pool;

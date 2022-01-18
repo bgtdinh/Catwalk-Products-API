@@ -6,6 +6,7 @@
   "dependencies": {
     "dotenv": "^11.0.0",
     "express": "^4.17.2",
+    "memory-cache": "^0.2.0",
     "pg": "^8.7.1"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
   },
   "scripts": {
     "test": "mocha ./test/unitTests.js",
+    "k6": "k6 run ./test/k6stress.js",
     "build-tables": "psql -U brian < ./schemas/schema.sql",
     "import-data": "psql -U brian < ./schemas/import.sql",
     "start": "npx nodemon index.js"

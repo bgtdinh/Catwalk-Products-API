@@ -90,7 +90,7 @@ const expectedProductById = {
 describe('/GET products by ID', () => {
   it('it should get products by ID', (done) => {
     chai.request(server)
-      .get('/products/productId?product_id=11')
+      .get('/products/11')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -463,7 +463,7 @@ const expectedStyle = {
 describe('/GET styles by ID', () => {
   it('it should get styles by ID', (done) => {
     chai.request(server)
-      .get('/products/styles?product_id=1')
+      .get('/products/1/styles')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -483,7 +483,7 @@ const expectedRelated = [
 describe('/GET related by ID', () => {
   it('it should get related by ID', (done) => {
     chai.request(server)
-      .get('/products/related?product_id=1')
+      .get('/products/1/related')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
