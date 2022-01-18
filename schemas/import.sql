@@ -4,7 +4,7 @@ copy products(id, product_name, slogan, product_description, category, default_p
 
 copy styles(id, product_id, style_name, sale_price, original_price, style_default) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/styles.csv' delimiter ',' csv header;
 
- copy photos(id, styles_id, normal_url, thumbnail_url) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv' delimiter ',' csv header;
+ copy photos(photo_id, styles_id, normal_url, thumbnail_url) from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/photos.csv' delimiter ',' csv header;
 
  copy skus from '/home/brian/hackreactor/Project-Catwalk-Products-API/data/skus.csv' delimiter ',' csv header;
 
