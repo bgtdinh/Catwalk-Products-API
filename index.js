@@ -1,5 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 require('dotenv').config();
+const newRelic = require('newrelic');
 const express = require('express');
 const cache = require('memory-cache');
 

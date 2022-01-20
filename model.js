@@ -1,35 +1,40 @@
 const db = require('./connection');
 
-const getPhotosbyStyleId = (style_id, styles) => {
+const getPhotosbyStyleId = (styleId, styles) => {
 // result is an array of objects
 // thumbnail_url:
 // url:
-  var result = {};
+  const result = {};
 
-for( let i = 0; i < styles.length; i++) {
-  if(style_id === styles[i].id) {
-    result[styles[i].photo_id] = {thumbnail_url: styles[i].thumbnail_url, url: styles[i].normal_url};
-
+  for (let i = 0; i < styles.length; i += 1) {
+    if (styleId === styles[i].id) {
+      // eslint-disable-next-line max-len
+      result[styles[i].photo_id] = { thumbnail_url: styles[i].thumbnail_url, url: styles[i].normal_url };
+    }
   }
-}
 
-var finalResult = [];
+  const finalResult = Object.values(result);
 
-for( let photoId in result) {
-  finalResult.push(result[photoId]);
-}
+  // const valuesOfResult = Object.values(result);
+  // for (let i = 0; i < valuesOfResult; i += 1) {
+  //   finalResult.push(valuesOfResult[i]);
+  // }
+
+  // for ( let photoId in result) {
+  //   finalResult.push(result[photoId]);
+  // }
 
   return finalResult;
 };
 
-const getSkusbyStyleId = (style_id, styles) => {
-  //result is object of objects
-  //sku_id: {quantity:, size:}
-  var result = {};
+const getSkusbyStyleId = (styleId, styles) => {
+  // result is object of objects
+  // sku_id: {quantity:, size:}
+  const result = {};
 
-  for(let i = 0; i < styles.length; i++) {
-    if(style_id === styles[i].id) {
-      result[styles[i].sku_id] = {quantity: styles[i].quantity, size: styles[i].size};
+  for (let i = 0; i < styles.length; i += 1) {
+    if (styleId === styles[i].id) {
+      result[styles[i].sku_id] = { quantity: styles[i].quantity, size: styles[i].size };
     }
   }
   return result;
@@ -47,7 +52,7 @@ module.exports = {
   },
 
   getProductByIdWithStyles: (params) => {
-    const sql = 'select styles.product_id, styles.id, styles.style_name, styles.original_price, styles.sale_price, styles.style_default, skus.sku_id, skus.size, skus.quantity, photos.photo_id, photos.normal_url, photos.thumbnail_url from styles inner join skus on styles.id=skus.styles_id inner join photos on styles.id=photos.styles_id where styles.product_id=$1';
+    const sql = 'select styles.product_id, styles.id, styles.style_name, styles.original_price, styles.sale_price, styles.style_default, skus.sku_id, skus.size, skus.quantity, photos.photo_id, photos.normal_url, photos.thumbnail_url from styles left join skus on styles.id=skus.styles_id left join photos on styles.id=photos.styles_id where (styles.product_id=$1)';
     return db.query(sql, [parseInt(params.product_id, 10)]);
   },
 
@@ -57,38 +62,38 @@ module.exports = {
   },
 
   transformRelatedProducts: (arrayOfRelated) => {
-    var result = [];
-    for(let i = 0; i < arrayOfRelated.length; i++) {
+    const result = [];
+    for (let i = 0; i < arrayOfRelated.length; i += 1) {
       result.push(arrayOfRelated[i].related_id);
     }
     return result;
   },
 
   transformProductId: (product) => {
-    var feature = [];
-    for(let i = 0; i < product.length; i++) {
-        let object = {feature: product[i].feature, value: product[i].feature_value};
-        feature.push(object);
-    };
-    var result = {
+    const feature = [];
+    for (let i = 0; i < product.length; i += 1) {
+      const object = { feature: product[i].feature, value: product[i].feature_value };
+      feature.push(object);
+    }
+    const result = {
       id: product[0].id,
       name: product[0].product_name,
       slogan: product[0].slogan,
       description: product[0].product_description,
       category: product[0].category,
       default_price: product[0].default_price,
-      features: feature
+      features: feature,
     };
     return result;
   },
   transformProductByIdWithStyles: (styles) => {
-    var result = {
+    const result = {
       product_id: styles[0].product_id,
       results: [],
-    }
-    var tempResult = {};
-    var secondTempResult = [];
-    for(let i = 0; i < styles.length; i++) {
+    };
+    const tempResult = {};
+    // const secondTempResult = [];
+    for (let i = 0; i < styles.length; i += 1) {
       tempResult[styles[i].id] = {
         styles_id: styles[i].id,
         name: styles[i].style_name,
@@ -99,12 +104,12 @@ module.exports = {
         skus: getSkusbyStyleId(styles[i].id, styles),
       };
     }
+    const valuesOfTempResult = Object.values(tempResult);
+    // for ( let styleId in tempResult) {
+    //     secondTempResult.push(tempResult[styleId]);
+    // }
 
-    for ( let styleId in tempResult) {
-        secondTempResult.push(tempResult[styleId]);
-    }
-
-    result.results = secondTempResult;
+    result.results = valuesOfTempResult;
     return result;
-  }
-}
+  },
+};
