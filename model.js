@@ -8,8 +8,10 @@ const getPhotosbyStyleId = (styleId, styles) => {
 
   for (let i = 0; i < styles.length; i += 1) {
     if (styleId === styles[i].id) {
-      // eslint-disable-next-line max-len
-      result[styles[i].photo_id] = { thumbnail_url: styles[i].thumbnail_url, url: styles[i].normal_url };
+      if (styles[i].photo_id) {
+        // eslint-disable-next-line max-len
+        result[styles[i].photo_id] = { thumbnail_url: styles[i].thumbnail_url, url: styles[i].normal_url };
+      }
     }
   }
 
@@ -34,7 +36,9 @@ const getSkusbyStyleId = (styleId, styles) => {
 
   for (let i = 0; i < styles.length; i += 1) {
     if (styleId === styles[i].id) {
-      result[styles[i].sku_id] = { quantity: styles[i].quantity, size: styles[i].size };
+      if (styles[i].sku_id) {
+        result[styles[i].sku_id] = { quantity: styles[i].quantity, size: styles[i].size };
+      }
     }
   }
   return result;
