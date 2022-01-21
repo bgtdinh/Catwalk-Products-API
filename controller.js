@@ -6,7 +6,7 @@ module.exports = {
     if (req.params.product_id) {
       models.getProductById(req.params)
         .then((response) => {
-          res.status(200).send(models.transformProductId(response.rows));
+          res.status(200).send(models.transformProductId(req.params, response.rows));
         })
         .catch((error) => {
           console.error(error.stack);
@@ -28,7 +28,7 @@ module.exports = {
   getProductByIdWithStyles: (req, res) => {
     models.getProductByIdWithStyles(req.params)
       .then((response) => {
-        res.status(200).send(models.transformProductByIdWithStyles(response.rows));
+        res.status(200).send(models.transformProductByIdWithStyles(req.params, response.rows));
       })
       .catch((error) => {
         console.error(error.stack);

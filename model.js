@@ -1,6 +1,6 @@
 const db = require('./connection');
 
-const getPhotosbyStyleId = (styleId, styles) => {
+const getPhotosbyStyleId = (styleId, styles = []) => {
 // result is an array of objects
 // thumbnail_url:
 // url:
@@ -29,7 +29,7 @@ const getPhotosbyStyleId = (styleId, styles) => {
   return finalResult;
 };
 
-const getSkusbyStyleId = (styleId, styles) => {
+const getSkusbyStyleId = (styleId, styles = []) => {
   // result is object of objects
   // sku_id: {quantity:, size:}
   const result = {};
@@ -73,46 +73,46 @@ module.exports = {
     return result;
   },
 
-  transformProductId: (product) => {
+  transformProductId: (inputParams, product = []) => {
     const feature = [];
     for (let i = 0; i < product.length; i += 1) {
       const object = { feature: product[i].feature, value: product[i].feature_value };
       feature.push(object);
     }
     const result = {
-      id: product[0].id,
-      name: product[0].product_name,
-      slogan: product[0].slogan,
-      description: product[0].product_description,
-      category: product[0].category,
-      default_price: product[0].default_price,
+      id: inputParams.product_id,
+      name: product[0].product_name || '',
+      slogan: product[0].slogan || '',
+      description: product[0].product_description || '',
+      category: product[0].category || '',
+      default_price: product[0].default_price || '',
       features: feature,
     };
     return result;
   },
-  transformProductByIdWithStyles: (styles) => {
+  transformProductByIdWithStyles: (inputParams, styles = []) => {
     const result = {
-      product_id: styles[0].product_id,
+      product_id: inputParams.product_id,
       results: [],
     };
     const tempResult = {};
     // const secondTempResult = [];
     for (let i = 0; i < styles.length; i += 1) {
-      tempResult[styles[i].id] = {
-        styles_id: styles[i].id,
+      const currentStyleId = styles[i].id || 0;
+      tempResult[currentStyleId] = {
+        styles_id: currentStyleId,
         name: styles[i].style_name,
         original_price: styles[i].original_price,
         sale_price: styles[i].sale_price,
         'default?': styles[i].style_default,
-        photos: getPhotosbyStyleId(styles[i].id, styles),
-        skus: getSkusbyStyleId(styles[i].id, styles),
+        photos: getPhotosbyStyleId(currentStyleId, styles),
+        skus: getSkusbyStyleId(currentStyleId, styles),
       };
     }
     const valuesOfTempResult = Object.values(tempResult);
     // for ( let styleId in tempResult) {
     //     secondTempResult.push(tempResult[styleId]);
     // }
-
     result.results = valuesOfTempResult;
     return result;
   },
