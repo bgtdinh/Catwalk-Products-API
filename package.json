@@ -21,8 +21,9 @@
   "scripts": {
     "test": "mocha ./test/unitTests.js",
     "k6": "k6 run ./test/k6stress.js",
-    "build-tables": "psql -U brian < ./schemas/schema.sql",
-    "import-data": "psql -U brian < ./schemas/import.sql",
+    "build-tables": "psql -U postgres < ./schemas/schema.sql",
+    "import-data": "psql -U postgres < ./schemas/import.sql",
+    "index-data": "psql -U postgres < ./schemas/index.sql",
     "start": "npx nodemon index.js"
   },
   "repository": {
