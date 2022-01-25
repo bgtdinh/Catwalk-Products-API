@@ -1,4 +1,9 @@
 /* eslint-disable no-console */
+
+const redis = require('redis');
+
+const client = redis.createClient();
+client.connect();
 const models = require('./model');
 
 module.exports = {
@@ -6,7 +11,9 @@ module.exports = {
     if (req.params.product_id) {
       models.getProductById(req.params)
         .then((response) => {
-          res.status(200).send(models.transformProductId(req.params, response.rows));
+          const transformedData = models.transformProductId(req.params, response.rows);
+          client.set(req.originalUrl, JSON.stringify(transformedData));
+          res.status(200).send(transformedData);
         })
         .catch((error) => {
           console.error(error.stack);
@@ -16,6 +23,7 @@ module.exports = {
     if (!req.params.product_id) {
       models.getProducts()
         .then((response) => {
+          client.set(req.originalUrl, JSON.stringify(response.rows));
           res.status(200).send(response.rows);
         })
         .catch((error) => {
@@ -28,7 +36,9 @@ module.exports = {
   getProductByIdWithStyles: (req, res) => {
     models.getProductByIdWithStyles(req.params)
       .then((response) => {
-        res.status(200).send(models.transformProductByIdWithStyles(req.params, response.rows));
+        const transformedData = models.transformProductByIdWithStyles(req.params, response.rows);
+        client.set(req.originalUrl, JSON.stringify(transformedData));
+        res.status(200).send(transformedData);
       })
       .catch((error) => {
         console.error(error.stack);
@@ -39,7 +49,9 @@ module.exports = {
   getRelatedProducts: (req, res) => {
     models.getRelatedProducts(req.params)
       .then((response) => {
-        res.status(200).send(models.transformRelatedProducts(response.rows));
+        const transformedData = models.transformRelatedProducts(response.rows);
+        client.set(req.originalUrl, JSON.stringify(transformedData));
+        res.status(200).send(transformedData);
       })
       .catch((error) => {
         console.error(error.stack);
