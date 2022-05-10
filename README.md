@@ -43,6 +43,4 @@ This project was deployed to AWS with multiple instances of the server load bala
 
 My api microservice containing products was primarily get requests so the optimzation that made the most sense was caching the results. By caching the results it would prevent querying the database and running further code which would slow the response times.
 
-I setup a local cache which was located on each server which held a small cache if the same query was made in a certain time frame. This helped when it was the same query being hit repeated in a short timeframe however if it was multiple random queries there was no reduction in response time.
-
-I was unable to finish the caching rework, however looking ahead my plan was to implement a Redis database caching system where the servers would check the data from the Redis database before attempting to query the Postgres database. This would decrease response times as long as the data was already cached.
+I setup a redis cache where the servers would check the cache before querying the database if the cache did not contain the information. This drastically reduced response times when the information was saved on the Redis cache.
