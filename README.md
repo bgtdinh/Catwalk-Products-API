@@ -1,6 +1,6 @@
 # Catwalk Products Microservice
 
-Building and scaling the backend api microservice serving product information from a postgres database to another seperate front end react project.
+Building and scaling the backend api microservice serving product information from a postgres database to another separate front end react project.
 
 # Installation
 
