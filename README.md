@@ -1,6 +1,6 @@
-# Project-Catwalk Products Microservice
+# Catwalk Products Microservice
 
-Building and scaling the backend api microservice for the products section of another previous front end project.
+Building and scaling the backend api microservice serving product information from a postgres database to another seperate front end react project.
 
 # Installation
 
@@ -39,8 +39,8 @@ npm run k6
 
 # Optimizations
 
-This project was deployed to AWS with multiple instances of the server load balanced using NGINX. The database was index increasing query times and a local cache system was employed on each server.
+This project was deployed to AWS with multiple instances of the server load balanced using NGINX. The database was indexed reducing query times and a local cache system was initially employed on each server, however was later changed to a redis cache.
 
-My api microservice containing products was primarily get requests so the optimzation that made the most sense was caching the results. By caching the results it would prevent querying the database and running further code which would slow the response times.
+My api microservice containing products was primarily get requests so the optimzation that made the most sense was caching the results. By caching the results it would prevent querying the database and increasing server usage slowing response times.
 
 I setup a redis cache where the servers would check the cache before querying the database if the cache did not contain the information. This drastically reduced response times when the information was saved on the Redis cache.
