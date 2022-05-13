@@ -1,6 +1,7 @@
 # Catwalk Products Microservice
 
 Building and scaling the backend api microservice serving product information from a postgres database to another separate front end react project.
+The database was populated with data from csv's with millions of entries. The csv's are too large to be hosted on github but can be received upon request. 
 
 # Installation
 
